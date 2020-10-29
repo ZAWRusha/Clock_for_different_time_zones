@@ -6,67 +6,27 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
-	<title>clock</title>
+	<title>Clocks on JS</title>
 </head>
 
 <body>
-
-	<h1>Clock for different time zones</h1>
-
 	<div class="main">
+
+		<h1>Clocks for different time zones</h1>
+
+
 		<div class="container">
-
-			<div class="clock-box" id="clock1">
-
-				<div class="clock-face">
-					<div class="arrow-hour"></div>
-					<div class="arrow-min"></div>
-					<div class="arrow-sec"></div>
-				</div>
-
-				<div class="digital-box">
-					<div class="clock-digital"></div>
-				</div>
-
-				<form method="post" name="formTown">
-					<select class="current-town" name="selectTown">
-						<option value="0" selected>Местное время</option>
-						<option value="10">Владивосток</option>
-						<option value="2">Калининград</option>
-						<option value="7">Красноярск</option>
-						<option value="3">Москва</option>
-					</select>
-				</form>
+			<div class="button-box">
+				<button class="add-clock button">add clock</button>
+				<button class="remove-all-clocks button">remove all clocks</button>
 			</div>
-
-			<div class="clock-box" id="clock2">
-
-				<div class="clock-face">
-					<div class="arrow-hour"></div>
-					<div class="arrow-min"></div>
-					<div class="arrow-sec"></div>
-				</div>
-
-				<div class="digital-box">
-					<div class="clock-digital"></div>
-				</div>
-
-				<form method="post" name="formTown">
-					<select class="current-town" name="selectTown">
-						<option value="" selected>Местное время</option>
-						<option value="10">Владивосток</option>
-						<option value="2">Калининград</option>
-						<option value="7">Красноярск</option>
-						<option value="3">Москва</option>
-					</select>
-				</form>
-			</div>
-
+			<div class="wrapper"></div>
 		</div>
-		<footer>Created clock by Dmitriy Malkov</footer>
+
 	</div>
 
-	<!-- <script src="js/clock.js"></script> -->
+	<footer>Created clock by Dmitriy Malkov</footer>
+
 	<script src="js/Constructor.js"></script>
 	<script src="js/init.js"></script>
 

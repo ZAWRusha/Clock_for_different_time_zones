@@ -1,5 +1,12 @@
 'use strict'
 
+const addClockButton = document.querySelector('.add-clock'),
+	removeAllClocksButton = document.querySelector('.remove-all-clocks'), // Получение кнопки удаления всех часов
+	wrapper = document.querySelector('.wrapper')
+
+let clockNum = 2 // Стартовое кол-во часов на странице
+
+
 class Clock {
 	constructor() {
 
@@ -22,19 +29,37 @@ class Clock {
 			this.currentTimeZone = new Date().getTimezoneOffset() / -60 // Получение текущей (на локальном компьютере) временной зоны
 			this.angleStroke = this.angleHour // шаг часовых штрихов
 			this.correctingHour = +this.currentTown.options[this.currentTown.selectedIndex].value // получение временной зоны выбранного города из html
+			this.removeClock = id.querySelector('.remove-clock') // Получение кнопки удаления часов
 
 			let that = this
 			this.currentTown.addEventListener('click', function (event) {
 				that.getTheSelectedCity(event)
 			})
-			//Слежение за выбором города из списка
+
+			//Удаление часов
+			this.removeClock.addEventListener('click', () => {
+				this.deleteClock()
+			})
+
+			this.removeClock.addEventListener('click', () => {
+				this.deleteClock()
+			})
+
+			//Функция удаления часов
+			this.deleteClock = () => {
+				id.classList.remove('open-clock')
+				id.classList.add('close-clock')
+				setInterval(() => id.remove(), 1000)
+			}
+
 			this.drawingStroke()
-			setInterval(() => this.drawingClock(), 500)
+
+			//Слежение за выбором города из списка
+			setInterval(() => this.drawingClock(), 50)
 		}
 
 		// Отрисовка часовых штрихов циферблата
 		this.drawingStroke = function () {
-			// console.log('currentTimeZone ' + this.currentTimeZone)
 			for (let i = 1; i <= 12; i++) {
 				let stroke = document.createElement('div')
 				stroke.style.transform = `rotateZ(${this.angleStroke}deg)`
@@ -96,4 +121,62 @@ class Clock {
 		}
 
 	}
+}
+
+let startNewClock = function (i) {
+	let clockNumber = `clock${i}`
+	const addClock = document.createElement('div')
+
+	addClock.classList.add('clock-box', 'open-clock')
+	addClock.id = `clock${i}`
+	addClock.innerHTML = `
+				<div class="remove-clock">+</div>
+
+				<div class="clock-face">
+					<div class="arrow-hour"></div>
+					<div class="arrow-min"></div>
+					<div class="arrow-sec"></div>
+				</div>
+
+				<div class="digital-box">
+					<div class="clock-digital"></div>
+				</div>
+
+				<form method="post" name="formTown">
+					<select class="current-town" name="selectTown">
+						<option value="0" selected>Местное время</option>
+						<option value="2">Калининград</option>
+						<option value="3">Москва</option>
+						<option value="7">Красноярск</option>
+						<option value="8">Иркутск</option>
+						<option value="10">Владивосток</option>
+						<option value="10">Комсомольск-на-Амуре</option>
+					</select>
+				</form>
+			`
+	wrapper.append(addClock)
+	clockNumber = new Clock()
+	clockNumber.start(`clock${i}`)
+
+}
+
+
+for (let i = 1; i < clockNum + 1; i++) {
+	startNewClock(i)
+}
+
+addClockButton.addEventListener('click', () => {
+	clockNum++
+	startNewClock(clockNum)
+})
+
+removeAllClocksButton.addEventListener('click', () => {
+	wrapper.classList.add('close-all-clock')
+	setTimeout(removeAllClocks, 1000)
+})
+
+let removeAllClocks = function () {
+	wrapper.innerHTML = ''
+	wrapper.classList.remove('close-all-clock')
+	clockNum = 0
 }
